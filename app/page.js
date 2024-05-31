@@ -81,14 +81,12 @@ const Page = () => {
             </>
           )}
           <div>
-            <h1 className="font-semibold text-lg">
-              Source{' '}
-              <Link
-                className=" text-sm underline hover:text-gray-600 text-wrap"
-                target="_blank"
-                href={`https://api.dictionaryapi.dev/api/v2/entries/en/${data.word}`}
-              >{`https://api.dictionaryapi.dev/api/v2/entries/en/${data.word}`}</Link>
-            </h1>
+            <h1 className="font-semibold text-lg">Source </h1>
+            <Link
+              className=" text-sm underline hover:text-gray-600 text-wrap"
+              target="_blank"
+              href={`https://api.dictionaryapi.dev/api/v2/entries/en/${data.word}`}
+            >{`https://api.dictionaryapi.dev/api/v2/entries/en/${data.word}`}</Link>
           </div>
           {audio.length > 0 && <audio src={audio[0].audio} ref={audioRef} />}
         </div>
