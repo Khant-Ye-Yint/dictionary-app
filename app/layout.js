@@ -6,13 +6,15 @@ import './globals.css';
 const roboto = Roboto_Mono({ subsets: ['latin'] });
 
 import NavBar from './components/NavBar';
-import { useThemeStore } from '@/store/theme';
+// import { useThemeStore } from '@/store/theme';
+import Cookies from 'js-cookie';
 
 export default function RootLayout({ children }) {
-  const isDark = useThemeStore((state) => state.dark);
+  // const isDark = useThemeStore((state) => state.dark);
+  console.log(Cookies.get('theme'));
 
   return (
-    <html lang="en" className={isDark ? 'dark' : ''}>
+    <html lang="en" className={Cookies.get('theme') === 'light' ? '' : 'dark'}>
       <body className={`${roboto.className}`}>
         <NavBar />
         {children}
