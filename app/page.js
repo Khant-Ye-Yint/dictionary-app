@@ -18,14 +18,14 @@ const Page = () => {
   }
 
   return (
-    <div className="mb-10 mt-4 light">
+    <div className="mt-4 mb-10 light">
       <SearchBar setData={setData} setIsFetched={setIsFetched} />
       {isFetched && (
-        <div className=" flex flex-col gap-8">
-          <div className="flex flex-row justify-between items-center">
-            <div className=" flex flex-col gap-4">
-              <h1 className=" text-3xl">{data.word}</h1>
-              <p className=" text-green-600 dark:text-green-200">
+        <div className="flex flex-col gap-8 ">
+          <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-col gap-4 ">
+              <h1 className="text-3xl ">{data.word}</h1>
+              <p className="text-green-600 dark:text-green-200">
                 {data.phonetic}
               </p>
             </div>
@@ -37,11 +37,11 @@ const Page = () => {
               } rounded-full p-4 `}
               onClick={() => audio.length > 0 && audioRef.current.play()}
             >
-              <FaPlay className=" text-2xl" />
+              <FaPlay className="text-2xl " />
             </div>
           </div>
           <div>
-            <h2 className=" font-semibold text-lg">
+            <h2 className="text-lg font-semibold ">
               {data.meanings[0].partOfSpeech}
             </h2>
           </div>
@@ -55,9 +55,9 @@ const Page = () => {
           </div>
           {data.meanings[0].synonyms.length > 1 && (
             <div>
-              <span className="font-semibold text-lg mr-4">Synonyms</span>
+              <span className="mr-4 text-lg font-semibold">Synonyms</span>
               {data.meanings[0].synonyms.slice(0, 2).map((item, key) => (
-                <span key={key} className=" text-green-600">
+                <span key={key} className="text-green-600 ">
                   {item}
                 </span>
               ))}
@@ -66,12 +66,12 @@ const Page = () => {
           {data.meanings[1] && (
             <>
               <div>
-                <h2 className=" font-semibold text-lg">
+                <h2 className="text-lg font-semibold ">
                   {data.meanings[1].partOfSpeech}
                 </h2>
               </div>
               <div className="flex flex-col gap-4">
-                <div className=" font-light text-lg">Meaning</div>
+                <div className="text-lg font-light ">Meaning</div>
                 <ul className="list">
                   {data.meanings[1].definitions.slice(0, 3).map((item, key) => (
                     <li key={key}>{item.definition}</li>
@@ -80,13 +80,15 @@ const Page = () => {
               </div>
             </>
           )}
-          <div>
-            <h1 className="font-semibold text-lg">Source </h1>
-            <Link
-              className=" text-sm underline hover:text-gray-600 text-wrap"
-              target="_blank"
-              href={`https://api.dictionaryapi.dev/api/v2/entries/en/${data.word}`}
-            >{`https://api.dictionaryapi.dev/api/v2/entries/en/${data.word}`}</Link>
+          <div className="w-full ">
+            <h1 className="text-lg font-semibold">Source </h1>
+            <span className="w-full text-wrap">
+              <Link
+                className="text-xs underline hover:text-gray-600"
+                target="_blank"
+                href={`https://api.dictionaryapi.dev/api/v2/entries/en/${data.word}`}
+              >{`https://api.dictionaryapi.dev/api/v2/entries/en/${data.word}`}</Link>
+            </span>
           </div>
           {audio.length > 0 && <audio src={audio[0].audio} ref={audioRef} />}
         </div>
