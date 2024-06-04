@@ -82,8 +82,8 @@ const Page = () => {
               <Link
                 className="text-xs underline hover:text-gray-600"
                 target="_blank"
-                href={`https://api.dictionaryapi.dev/api/v2/entries/en/${data.word}`}
-              >{`https://api.dictionaryapi.dev/api/v2/entries/en/${data.word}`}</Link>
+                href={`https://api.dictionaryapi.dev/api/v2/entries/en/${data[0].word}`}
+              >{`https://api.dictionaryapi.dev/api/v2/entries/en/${data[0].word}`}</Link>
             </span>
           </div>
           {audio.length > 0 && <audio src={audio[0].audio} ref={audioRef} />}
