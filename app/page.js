@@ -10,10 +10,15 @@ const Page = () => {
   const [data, setData] = useState({});
   const audioRef = useRef();
 
-  let audio;
+  let audio = [];
 
   if (isFetched) {
-    audio = data.phonetics.filter((item) => item.audio !== '');
+    data.forEach((chunk) => {
+      const filteredChunks = chunk.phonetics.filter(
+        (item) => item.audio !== ''
+      );
+      filteredChunks.forEach((chunk) => audio.push(chunk));
+    });
     console.log(audio);
   }
 
@@ -24,9 +29,9 @@ const Page = () => {
         <div className="flex flex-col gap-8 ">
           <div className="flex flex-row items-center justify-between">
             <div className="flex flex-col gap-4 ">
-              <h1 className="text-3xl ">{data.word}</h1>
+              <h1 className="text-3xl ">{data[0].word}</h1>
               <p className="text-green-600 dark:text-green-200">
-                {data.phonetic}
+                {data[0].phonetic}
               </p>
             </div>
             <div
@@ -40,46 +45,37 @@ const Page = () => {
               <FaPlay className="text-2xl " />
             </div>
           </div>
-          <div>
-            <h2 className="text-lg font-semibold ">
-              {data.meanings[0].partOfSpeech}
-            </h2>
-          </div>
-          <div className="flex flex-col gap-4">
-            <h1 className="text-xl font-light">Meaning</h1>
-            <ul className="list">
-              {data.meanings[0].definitions.slice(0, 3).map((item, key) => (
-                <li key={key}>{item.definition}</li>
-              ))}
-            </ul>
-          </div>
-          {data.meanings[0].synonyms.length > 1 && (
-            <div>
-              <span className="mr-4 text-lg font-semibold">Synonyms</span>
-              {data.meanings[0].synonyms.slice(0, 2).map((item, key) => (
-                <span key={key} className="text-green-600 ">
-                  {item}
-                </span>
-              ))}
-            </div>
-          )}
-          {data.meanings[1] && (
-            <>
-              <div>
-                <h2 className="text-lg font-semibold ">
-                  {data.meanings[1].partOfSpeech}
-                </h2>
+
+          {data.map((chunk) =>
+            chunk.meanings.map((item, key) => (
+              <div key={key}>
+                <div>
+                  <h2 className="text-lg font-semibold ">
+                    {item.partOfSpeech}
+                  </h2>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <h1 className="text-xl font-light">Meaning</h1>
+                  <ul className="list">
+                    {item.definitions.slice(0, 3).map((item, key) => (
+                      <li key={key}>{item.definition}</li>
+                    ))}
+                  </ul>
+                </div>
+                {item.synonyms.length > 1 && (
+                  <div className="mt-2">
+                    <span className="mr-4 text-lg font-semibold">Synonyms</span>
+                    {item.synonyms.slice(0, 2).map((snapshot, key) => (
+                      <span key={key} className="text-green-600 ">
+                        {snapshot}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
-              <div className="flex flex-col gap-4">
-                <div className="text-lg font-light ">Meaning</div>
-                <ul className="list">
-                  {data.meanings[1].definitions.slice(0, 3).map((item, key) => (
-                    <li key={key}>{item.definition}</li>
-                  ))}
-                </ul>
-              </div>
-            </>
+            ))
           )}
+
           <div className="w-full ">
             <h1 className="text-lg font-semibold">Source </h1>
             <span className="w-full text-wrap">
